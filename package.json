@@ -1,0 +1,19 @@
+{
+  "name": "ct-flashcards",
+  "version": "31.0.0",
+  "private": true,
+  "description": "CT Flashcards — 10.274 flashcards de Medicina com revisão espaçada. CT dos Acadêmicos.",
+  "license": "UNLICENSED",
+  "engines": { "node": ">=18" },
+  "scripts": {
+    "build": "node scripts/build.js",
+    "conteudo": "node scripts/split_content.js",
+    "verifica": "node scripts/verifica.js",
+    "test": "node scripts/verifica.js && node scripts/e2e_repo.js",
+    "e2e": "node scripts/e2e_repo.js",
+    "serve": "node scripts/servidor.js"
+  },
+  "devDependencies": {
+    "playwright": "^1.47.0"
+  }
+}

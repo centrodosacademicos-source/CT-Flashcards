@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>CT Flashcards — 10.384 flashcards de Medicina</title>
+<meta name="description" content="Flashcards de Medicina com revisão espaçada: 10.384 cartas de Estágio e Residência, condutas, doses e critérios que caem na prova. Do CT dos Acadêmicos.">
+<meta name="author" content="CT dos Acadêmicos">
+<meta name="theme-color" content="#0a1628">
+
+<!-- miniatura ao compartilhar (WhatsApp, Instagram, Telegram, Google) -->
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="CT Flashcards">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="CT Flashcards — Medicina de verdade, um flashcard por vez">
+<meta property="og:description" content="10.384 flashcards de Medicina com revisão espaçada. Estágio e Residência, do CT dos Acadêmicos.">
+<meta property="og:image" content="assets/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="CT Flashcards — 10.384 flashcards de Medicina">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="CT Flashcards">
+<meta name="twitter:description" content="10.384 flashcards de Medicina com revisão espaçada.">
+<meta name="twitter:image" content="assets/img/og.png">
+
+<!-- ícones -->
+<link rel="icon" href="assets/img/favicon.ico" sizes="any">
+<link rel="icon" type="image/svg+xml" href="assets/img/icone.svg">
+<link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+<link rel="manifest" href="manifest.webmanifest">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="CT Flashcards">
+
+<!-- fontes: pré-conexão para não atrasar a primeira pintura -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@500;600;700;800&family=Inter:wght@400;500;600;700&display=swap">
+
+<!-- o índice do conteúdo é o primeiro pedido do app: adianta o download -->
+<link rel="preload" href="data/index.json" as="fetch" crossorigin>
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+
+<script>
+/* Aplica o tema salvo ANTES do CSS pintar a tela, pra nunca piscar de escuro
+   pra claro (ou vice-versa) no primeiro instante da página. Lê o localStorage
+   direto, sem esperar o logic.js carregar — repetido lá como setTema()/tema()
+   pra manter as duas pontas em sincronia. */
+(function(){ try{
+  var t = JSON.parse(localStorage.getItem('fcct_tema')||'"dark"');
+  if(t==='light') document.documentElement.setAttribute('data-theme','light');
+}catch(e){} })();
+</script>
+
+
+<!-- ================= LANDING ================= -->
+<div id="pg-landing">
+  <header class="land-head">
+    <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn-o btn-sm" onclick="goAuth('login')">Entrar</button>
+      <button class="btn btn-sm" onclick="goAuth('signup')">Criar conta</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="badge">Plataforma oficial de flashcards do CT</span>
+    <h1>Memorize Medicina de verdade, <em>um flashcard por vez</em>.</h1>
+    <p>Revisão espaçada inteligente com condutas, doses e critérios que caem na prova e na prática. Crie sua conta e comece a estudar em menos de um minuto.</p>
+    <div class="hero-ctas">
+      <button class="btn" style="padding:14px 32px;font-size:15px" onclick="goAuth('signup')">Começar agora — é grátis</button>
+      <button class="btn-o" style="padding:13px 32px;font-size:15px" onclick="goAuth('login')">Já tenho conta</button>
+    </div>
+  </section>
+
+  <div class="statsbar" id="land-stats"></div>
+
+  <section class="land-sec">
+    <h2>Feito para fixar, não só para ler</h2>
+    <p class="sub">O mesmo método usado pelos melhores estudantes do mundo, com o conteúdo do CT dos Acadêmicos.</p>
+    <div class="feat-grid">
+      <div class="feat"><div class="ic">🧠</div><h3>Revisão espaçada</h3><p>O algoritmo agenda cada carta para o momento exato em que você está prestes a esquecer — estilo Anki, sem complicação.</p></div>
+      <div class="feat"><div class="ic">🩺</div><h3>Conteúdo de prática</h3><p>Condutas, doses e critérios reais: sepse, IAM, AVC, cetoacidose e muito mais, direto ao ponto.</p></div>
+      <div class="feat"><div class="ic">📊</div><h3>Estatísticas claras</h3><p>Acompanhe seu streak, taxa de acerto e domínio por baralho. Veja sua evolução dia após dia.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>Sessões rápidas</h3><p>10 minutos por dia bastam. Estude no intervalo do plantão, na fila do RU ou antes de dormir.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Seu progresso, sua conta</h3><p>Cadastre-se com e-mail e senha. Seu histórico de revisões fica salvo e continua de onde você parou.</p></div>
+      <div class="feat"><div class="ic">📱</div><h3>Funciona em tudo</h3><p>Celular, tablet ou computador — a plataforma se adapta à tela e ao seu ritmo de estudo.</p></div>
+    </div>
+  </section>
+
+  <section class="land-sec" style="padding-top:0">
+    <h2>🎓 CT Estágio — temas abertos</h2>
+    <p class="sub">Clínica médica e SUS. Novos baralhos são adicionados continuamente pela equipe do CT.</p>
+    <div class="land-decks" id="land-decks"></div>
+    <div id="land-restrito" style="margin-top:22px"></div>
+  </section>
+
+  <div class="cta-final">
+    <h2>Sua aprovação começa com a próxima revisão.</h2>
+    <button class="btn" style="padding:15px 36px;font-size:15px" onclick="goAuth('signup')">Criar minha conta grátis</button>
+  </div>
+
+  <footer>© <span id="yr"></span> CT dos Acadêmicos · @ctdosacademicos · Flashcards CT</footer>
+</div>
+
+<!-- ================= AUTH ================= -->
+<div id="pg-auth" hidden>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+      <div class="tabs">
+        <button id="tab-login" onclick="authTab('login')">Entrar</button>
+        <button id="tab-signup" onclick="authTab('signup')">Criar conta</button>
+      </div>
+      <div id="auth-msg"></div>
+      <form id="auth-form" novalidate>
+        <div class="fld" id="fld-nome" hidden>
+          <label for="in-nome">Nome completo</label>
+          <input id="in-nome" type="text" autocomplete="name" placeholder="Seu nome">
+        </div>
+        <div class="fld">
+          <label for="in-email">E-mail</label>
+          <input id="in-email" type="email" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="fld">
+          <label for="in-senha">Senha</label>
+          <input id="in-senha" type="password" autocomplete="current-password" placeholder="Mínimo 6 caracteres">
+        </div>
+        <button type="submit" class="btn btn-block" id="auth-btn">Entrar</button>
+        <button type="button" class="auth-rec" id="auth-rec" hidden onclick="esqueciSenha()">Esqueci minha senha</button>
+      </form>
+      <button class="auth-back" onclick="showPage('landing')">← Voltar para a página inicial</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="pg-app" hidden>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+      <div class="s-user"><div class="av" id="s-av"></div><div><b id="s-nome"></b><span id="s-email"></span></div></div>
+      <nav class="nav" id="nav-desk"></nav>
+      <button class="s-theme-sw" id="s-theme-sw" onclick="toggleTemaSidebar()" title="Alternar tema claro/escuro" aria-label="Alternar tema claro/escuro">
+        <span class="nic">🌙</span><span class="lb">Tema escuro</span>
+        <span class="sw-track"><span class="sw-thumb"></span></span>
+      </button>
+      <button class="s-out" onclick="logout()"><span class="nic">⏻</span> Sair</button>
+    </aside>
+    <main class="main"><div class="main-in" id="view"></div></main>
+  </div>
+  <nav class="mobbar" id="nav-mob"></nav>
+</div>
+
+<div id="mdl-root"></div>
+
+<!-- Supabase: só é usado se houver chaves em config.js -->
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.js" defer></script>
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/conteudo.js" defer></script>
+<script src="assets/js/nuvem.js" defer></script>
+<script src="assets/js/app.js" defer></script>
+<script>
+  /* Instala o app no aparelho e guarda o conteúdo para funcionar sem internet. */
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('sw.js').catch(() => {});
+    });
+  }
+</script>
+</body>
+</html>

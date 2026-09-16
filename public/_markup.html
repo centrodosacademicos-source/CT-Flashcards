@@ -1,0 +1,112 @@
+<script>
+/* Aplica o tema salvo ANTES do CSS pintar a tela, pra nunca piscar de escuro
+   pra claro (ou vice-versa) no primeiro instante da página. Lê o localStorage
+   direto, sem esperar o logic.js carregar — repetido lá como setTema()/tema()
+   pra manter as duas pontas em sincronia. */
+(function(){ try{
+  var t = JSON.parse(localStorage.getItem('fcct_tema')||'"dark"');
+  if(t==='light') document.documentElement.setAttribute('data-theme','light');
+}catch(e){} })();
+</script>
+
+
+<!-- ================= LANDING ================= -->
+<div id="pg-landing">
+  <header class="land-head">
+    <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+    <div style="display:flex;gap:10px">
+      <button class="btn-o btn-sm" onclick="goAuth('login')">Entrar</button>
+      <button class="btn btn-sm" onclick="goAuth('signup')">Criar conta</button>
+    </div>
+  </header>
+
+  <section class="hero">
+    <span class="badge">Plataforma oficial de flashcards do CT</span>
+    <h1>Memorize Medicina de verdade, <em>um flashcard por vez</em>.</h1>
+    <p>Revisão espaçada inteligente com condutas, doses e critérios que caem na prova e na prática. Crie sua conta e comece a estudar em menos de um minuto.</p>
+    <div class="hero-ctas">
+      <button class="btn" style="padding:14px 32px;font-size:15px" onclick="goAuth('signup')">Começar agora — é grátis</button>
+      <button class="btn-o" style="padding:13px 32px;font-size:15px" onclick="goAuth('login')">Já tenho conta</button>
+    </div>
+  </section>
+
+  <div class="statsbar" id="land-stats"></div>
+
+  <section class="land-sec">
+    <h2>Feito para fixar, não só para ler</h2>
+    <p class="sub">O mesmo método usado pelos melhores estudantes do mundo, com o conteúdo do CT dos Acadêmicos.</p>
+    <div class="feat-grid">
+      <div class="feat"><div class="ic">🧠</div><h3>Revisão espaçada</h3><p>O algoritmo agenda cada carta para o momento exato em que você está prestes a esquecer — estilo Anki, sem complicação.</p></div>
+      <div class="feat"><div class="ic">🩺</div><h3>Conteúdo de prática</h3><p>Condutas, doses e critérios reais: sepse, IAM, AVC, cetoacidose e muito mais, direto ao ponto.</p></div>
+      <div class="feat"><div class="ic">📊</div><h3>Estatísticas claras</h3><p>Acompanhe seu streak, taxa de acerto e domínio por baralho. Veja sua evolução dia após dia.</p></div>
+      <div class="feat"><div class="ic">⚡</div><h3>Sessões rápidas</h3><p>10 minutos por dia bastam. Estude no intervalo do plantão, na fila do RU ou antes de dormir.</p></div>
+      <div class="feat"><div class="ic">🔒</div><h3>Seu progresso, sua conta</h3><p>Cadastre-se com e-mail e senha. Seu histórico de revisões fica salvo e continua de onde você parou.</p></div>
+      <div class="feat"><div class="ic">📱</div><h3>Funciona em tudo</h3><p>Celular, tablet ou computador — a plataforma se adapta à tela e ao seu ritmo de estudo.</p></div>
+    </div>
+  </section>
+
+  <section class="land-sec" style="padding-top:0">
+    <h2>🎓 CT Estágio — temas abertos</h2>
+    <p class="sub">Clínica médica e SUS. Novos baralhos são adicionados continuamente pela equipe do CT.</p>
+    <div class="land-decks" id="land-decks"></div>
+    <div id="land-restrito" style="margin-top:22px"></div>
+  </section>
+
+  <div class="cta-final">
+    <h2>Sua aprovação começa com a próxima revisão.</h2>
+    <button class="btn" style="padding:15px 36px;font-size:15px" onclick="goAuth('signup')">Criar minha conta grátis</button>
+  </div>
+
+  <footer>© <span id="yr"></span> CT dos Acadêmicos · @ctdosacademicos · Flashcards CT</footer>
+</div>
+
+<!-- ================= AUTH ================= -->
+<div id="pg-auth" hidden>
+  <div class="auth-wrap">
+    <div class="auth-card">
+      <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+      <div class="tabs">
+        <button id="tab-login" onclick="authTab('login')">Entrar</button>
+        <button id="tab-signup" onclick="authTab('signup')">Criar conta</button>
+      </div>
+      <div id="auth-msg"></div>
+      <form id="auth-form" novalidate>
+        <div class="fld" id="fld-nome" hidden>
+          <label for="in-nome">Nome completo</label>
+          <input id="in-nome" type="text" autocomplete="name" placeholder="Seu nome">
+        </div>
+        <div class="fld">
+          <label for="in-email">E-mail</label>
+          <input id="in-email" type="email" autocomplete="email" placeholder="voce@exemplo.com">
+        </div>
+        <div class="fld">
+          <label for="in-senha">Senha</label>
+          <input id="in-senha" type="password" autocomplete="current-password" placeholder="Mínimo 6 caracteres">
+        </div>
+        <button type="submit" class="btn btn-block" id="auth-btn">Entrar</button>
+        <button type="button" class="auth-rec" id="auth-rec" hidden onclick="esqueciSenha()">Esqueci minha senha</button>
+      </form>
+      <button class="auth-back" onclick="showPage('landing')">← Voltar para a página inicial</button>
+    </div>
+  </div>
+</div>
+
+<!-- ================= APP ================= -->
+<div id="pg-app" hidden>
+  <div class="shell">
+    <aside class="sidebar">
+      <div class="logo"><b>CT</b><span>Flashcards<small>dos Acadêmicos</small></span></div>
+      <div class="s-user"><div class="av" id="s-av"></div><div><b id="s-nome"></b><span id="s-email"></span></div></div>
+      <nav class="nav" id="nav-desk"></nav>
+      <button class="s-theme-sw" id="s-theme-sw" onclick="toggleTemaSidebar()" title="Alternar tema claro/escuro" aria-label="Alternar tema claro/escuro">
+        <span class="nic">🌙</span><span class="lb">Tema escuro</span>
+        <span class="sw-track"><span class="sw-thumb"></span></span>
+      </button>
+      <button class="s-out" onclick="logout()"><span class="nic">⏻</span> Sair</button>
+    </aside>
+    <main class="main"><div class="main-in" id="view"></div></main>
+  </div>
+  <nav class="mobbar" id="nav-mob"></nav>
+</div>
+
+<div id="mdl-root"></div>

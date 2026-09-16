@@ -1,0 +1,26 @@
+{
+  "name": "CT Flashcards — CT dos Acadêmicos",
+  "short_name": "CT Flashcards",
+  "description": "10.274 flashcards de Medicina com revisão espaçada. Estágio e Residência.",
+  "lang": "pt-BR",
+  "dir": "ltr",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "orientation": "portrait-primary",
+  "background_color": "#0a1628",
+  "theme_color": "#0a1628",
+  "categories": ["education", "medical", "productivity"],
+  "icons": [
+    { "src": "assets/img/icone-192.png", "sizes": "192x192", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icone-512.png", "sizes": "512x512", "type": "image/png", "purpose": "any" },
+    { "src": "assets/img/icone-maskable-512.png", "sizes": "512x512", "type": "image/png", "purpose": "maskable" },
+    { "src": "assets/img/icone.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any" }
+  ],
+  "shortcuts": [
+    { "name": "Estudar agora", "short_name": "Estudar", "url": "./?ir=estudar",
+      "icons": [{ "src": "assets/img/icone-192.png", "sizes": "192x192" }] },
+    { "name": "Revisão rápida", "short_name": "Revisão", "url": "./?ir=base",
+      "icons": [{ "src": "assets/img/icone-192.png", "sizes": "192x192" }] }
+  ]
+}
