@@ -36,6 +36,10 @@ seja liberado por você (e não por um código), faça o passo seguinte:
 |---|---|---|---|
 | 6 | Criar o banco de dados no Supabase e colar as 2 chaves no app | 20 min | [docs/SUPABASE.md](docs/SUPABASE.md) |
 
+> Prefere publicar na **Vercel** em vez do GitHub Pages? Dá para fazer, mas
+> leia [docs/VERCEL.md](docs/VERCEL.md) antes — sem aquele passo o deploy
+> falha com "Command npm run build exited with 1".
+
 Depois que tudo estiver no ar, o dia a dia (liberar Premium, corrigir uma carta,
 ver quem está usando) está em **[docs/OPERACAO.md](docs/OPERACAO.md)**.
 
