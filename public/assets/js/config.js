@@ -14,8 +14,8 @@
    A "service_role key" NUNCA pode ser colada neste arquivo.
    ============================================================ */
 window.CT_CONFIG = {
-  SUPABASE_URL: 'https://wmohvaixqzcmukbunxna.supabase.co',
-  SUPABASE_ANON_KEY: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Indtb2h2YWl4cXpjbXVrYnVueG5hIiwicm9sZSI6ImFub24iLCJpYXQiOjE3ODkwMTU3MDIsImV4cCI6MjEwNDU5MTcwMn0.ODmtmI_T6e0wSTobzdmv6Tvc8NDyqQPogZlu5LSNmSs',
+  SUPABASE_URL: '',
+  SUPABASE_ANON_KEY: '',
 
   /* Links de checkout dos planos (Kiwify, Hotmart, Mercado Pago…) — um para
      cada trilha, porque o preço muda entre CT Estágio e CT Residência e cada

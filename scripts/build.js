@@ -6,6 +6,28 @@ const path = require('path');
 const fs = require('fs');
 
 const RAIZ = path.resolve(__dirname, '..');
+
+/* As duas fontes (flashcards-ct.html e logic.js) ficam DE PROPÓSITO fora deste
+   repositório — não vão para o GitHub, então nunca existem numa hospedagem que
+   clona só esta pasta (Vercel, Netlify e afins, se alguém apontar "npm run
+   build" como comando de build lá). Nesse caso não tem o que reconstruir: a
+   pasta public/ já foi gerada localmente e é ela que deve ir ao ar como está.
+   Sem essa saída, o build quebra com ENOENT logo no primeiro passo. */
+const FONTE_HTML = path.resolve(RAIZ, '..', 'flashcards-ct.html');
+const FONTE_LOGIC = path.resolve(RAIZ, '..', 'logic.js');
+const JA_TEM_BUILD = ['index.html', 'data/index.json', 'assets/js/app.js']
+  .every(f => fs.existsSync(path.join(RAIZ, 'public', f)));
+
+if ((!fs.existsSync(FONTE_HTML) || !fs.existsSync(FONTE_LOGIC)) && JA_TEM_BUILD) {
+  console.log('⚠️  flashcards-ct.html e/ou logic.js não existem aqui (fontes que ' +
+    'ficam fora do repositório de propósito). Como public/ já está construído, ' +
+    'pulando o build e publicando public/ como está — é o comportamento certo ' +
+    'numa hospedagem que só tem esta pasta (ex.: Vercel/Netlify apontando "npm ' +
+    'run build"). Para reconstruir de verdade, rode isto na máquina onde as ' +
+    'duas fontes existem.');
+  process.exit(0);
+}
+
 const passos = [
   ['split_content.js', 'conteúdo → data/index.json + data/temas/*.json'],
   ['extrai_shell.js',  'shell → assets/css/app.css + _markup.html'],

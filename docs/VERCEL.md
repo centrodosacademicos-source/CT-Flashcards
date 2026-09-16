@@ -22,10 +22,10 @@ A solução não é "consertar o build" — é dizer para a Vercel **não rodar 
 nenhum**. A pasta `public/` já vem pronta, gerada e testada; é exatamente o
 que o GitHub Pages também publica sem rodar nada.
 
-## O que já está resolvido
+## O que já está resolvido (duas camadas, para não depender de configuração)
 
-O arquivo `vercel.json`, nesta pasta, já instrui a Vercel a pular o
-`npm install` e o `npm run build` e publicar `public/` direto:
+**1) `vercel.json`**, nesta pasta, instrui a Vercel a pular o `npm install` e o
+`npm run build` e publicar `public/` direto:
 
 ```json
 {
@@ -35,21 +35,38 @@ O arquivo `vercel.json`, nesta pasta, já instrui a Vercel a pular o
 }
 ```
 
+**2) `scripts/build.js` agora se protege sozinho.** Mesmo que a Vercel ignore
+o `vercel.json` (por exemplo, se o projeto já tinha um **Build Command**
+travado manualmente nas configurações do painel, o que tem prioridade sobre o
+`vercel.json`) e rode `npm run build` de qualquer jeito, o script agora
+percebe que `flashcards-ct.html`/`logic.js` não existem ali, vê que `public/`
+já está construído, imprime um aviso e **encerra com sucesso sem tentar
+reconstruir nada** — em vez de quebrar com aquele `ENOENT`. Ou seja: o build
+não falha mais nessa hospedagem mesmo que a Vercel insista em rodá-lo.
+
 ## Passo a passo
 
-1. Garanta que este `vercel.json` está no repositório que a Vercel usa (se
-   você já tinha subido a pasta antes desse arquivo existir, suba de novo ou
-   só adicione este arquivo e faça commit).
+1. Garanta que o `vercel.json` e a versão nova de `scripts/build.js` estão no
+   repositório que a Vercel usa (suba a pasta atualizada, ou só esses dois
+   arquivos, e faça commit).
 2. No painel da Vercel, abra o projeto → **Settings → Build & Development
-   Settings** e confira que **Build Command** e **Install Command** aparecem
-   como "Not required" / desativados (o `vercel.json` faz isso sozinho; só
-   confira se alguém não ativou um valor manual por cima).
+   Settings** e confira se **Build Command** ou **Install Command** têm algum
+   valor com o toggle **Override** ligado. Se tiverem, desligue o Override
+   (deixa o `vercel.json` decidir) — embora agora, com o passo 2 acima, mesmo
+   deixando como está o deploy não deve mais quebrar.
 3. **Output Directory**: `public`.
 4. Vá em **Deployments** e clique em **Redeploy** (ou apenas faça um novo
    commit — qualquer envio dispara um novo deploy automaticamente).
 
 Depois disso o deploy passa a ser só "copiar os arquivos de `public/` e
 publicar", sem nenhum passo que possa quebrar.
+
+## Sobre o aviso amarelo do `engines`
+
+Se aparecer um aviso (não erro) tipo `Detected "engines": { "node": ">=18" }
+... will automatically upgrade when a new major Node.js Version is released`,
+pode ignorar — é só um aviso da Vercel sobre versão do Node, não é o que
+derruba o build.
 
 ## Se um dia quiser que a Vercel gere o `public/` sozinha
 
